@@ -1,6 +1,28 @@
+import json
+NOTES_FILE = "data/notes.json"
+
 print("Добро пожаловать в Менеджер заметок!")
 print(" ")
-notes = []  # здесь будут храниться все заметки
+
+
+def load_notes():
+    try:
+        with open(NOTES_FILE, "r") as f:
+            loaded = json.load(f)
+        return loaded
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        return []
+
+
+notes = load_notes()  # здесь будут храниться все заметки
+
+
+def save_notes(notes_list):
+    with open(NOTES_FILE, "w") as f:
+        json.dump(notes_list, f, indent=1)
+
 
 
 def add_note():
@@ -8,6 +30,7 @@ def add_note():
     new_text = input("Введите текст заметки: ")
     my_dict = {"title": new_title, "text": new_text}
     notes.append(my_dict)
+    save_notes(notes)
     print("Заметка добавлена!")
 
 
@@ -47,6 +70,12 @@ def show_menu():
 
 
 show_menu()
+
+
+
+
+
+
 
 
 
