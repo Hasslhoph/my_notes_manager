@@ -91,7 +91,7 @@ def show_menu():
             else:
                 print("Неверный выбор, попробуйте снова")
         except Exception as e:
-            print(f"Ошибка: {e}, введите число от 1 до 3")
+            print(f"Ошибка: {e}, введите число от 1 до 4")
 
 
 show_menu()
