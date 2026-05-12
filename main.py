@@ -11,6 +11,18 @@ def add_note():
     print("Заметка добавлена!")
 
 
+def show_notes():
+    if len(notes) == 0:
+        print("Нет заметок. Добавьте первую!")
+    else:
+        for i, note in enumerate(notes, start=1):
+            print(f"--- Заметка №{i} ---")
+            print(f"Заголовок: {note['title']}")
+            print(f"Текст: {note['text']}")
+            print("-" * 18)
+            print(" ")
+
+
 def show_menu():
     print("=== МЕНЕДЖЕР ЗАМЕТОК ===")
     print(" ")
@@ -19,14 +31,13 @@ def show_menu():
     print("3. Выйти")
     print(" ")
 
-
     while True:
         try:
             choice = int(input("Выберите действие: "))
             if choice == 1:
                 add_note()
             elif choice == 2:
-                print(notes)
+                show_notes()
             elif choice == 3:
                 break
             else:
@@ -36,3 +47,6 @@ def show_menu():
 
 
 show_menu()
+
+
+
