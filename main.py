@@ -5,7 +5,7 @@ print("Добро пожаловать в Менеджер заметок!")
 print(" ")
 
 
-def load_notes():
+def load_notes():  #Функция чтения из файла
     try:
         with open(NOTES_FILE, "r") as f:
             loaded = json.load(f)
@@ -19,10 +19,32 @@ def load_notes():
 notes = load_notes()  # здесь будут храниться все заметки
 
 
-def save_notes(notes_list):
+def save_notes(notes_list):  #Функция записи в файл
     with open(NOTES_FILE, "w") as f:
         json.dump(notes_list, f, indent=1)
 
+
+def delete_note():
+    if len(notes) == 0:
+        print("Нет заметок для удаления")
+        return
+    
+
+    show_notes()
+
+
+    try:
+        num = int(input("Введите номер заметки для удаления: "))
+        
+        if 1 <= num <= len(notes):
+            deleted = notes.pop(num - 1)
+            save_notes(notes)
+            print(f"Заметка '{deleted['title']}' удалена!")
+        else:
+            print(f"Неверный номер. Допустимо от 1 до {len(notes)}")
+            
+    except ValueError:
+        print("Ошибка: введите число")
 
 
 def add_note():
@@ -52,6 +74,7 @@ def show_menu():
     print("1. Добавить заметку")
     print("2. Просмотреть все заметки")
     print("3. Выйти")
+    print("4. Удалить заметку")
     print(" ")
 
     while True:
@@ -63,6 +86,8 @@ def show_menu():
                 show_notes()
             elif choice == 3:
                 break
+            elif choice == 4:
+                delete_note()
             else:
                 print("Неверный выбор, попробуйте снова")
         except Exception as e:
